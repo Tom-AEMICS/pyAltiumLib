@@ -107,17 +107,23 @@ class Coordinate:
         return NotImplemented
 
     def __rtruediv__(self, other):
-        return self.__div__(other)
-    
+        # other / self: operand order matters, so this cannot defer to __truediv__
+        if isinstance(other, (int, float)):
+            return Coordinate(other / self.value)
+        return NotImplemented
+
     def __rmul__(self, other):
         return self.__mul__(other)
-    
+
     def __radd__(self, other):
         return self.__add__(other)
-    
+
     def __rsub__(self, other):
-        return self.__sub__(other)
-    
+        # other - self: operand order matters, so this cannot defer to __sub__
+        if isinstance(other, (int, float)):
+            return Coordinate(other - self.value)
+        return NotImplemented
+
     def __lt__(self, other):
         if isinstance(other, Coordinate):
             return self.value < other.value
@@ -274,4 +280,6 @@ class CoordinatePoint:
         return self.__add__(other)
     
     def __rsub__(self, other):
-        return self.__sub__(other)
+        # Only reached for a non-CoordinatePoint on the left, which __sub__ does not
+        # support either; deferring to __sub__ would silently swap the operands.
+        return NotImplemented
