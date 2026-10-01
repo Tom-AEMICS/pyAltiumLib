@@ -253,7 +253,7 @@ class PcbPad(GenericPCBRecord):
         path = self.get_svg_rounded_rect_path(start, size, layer_id, corner_radius)
         drawing_primitive = dwg.path(d=path,
                                      fill=layer.color.to_hex(),
-                                     transform=f"rotate(-{self.rotation} {center.x} {center.y})")
+                                     transform=f"rotate({-self.rotation} {center.x} {center.y})")
         
         self.Footprint._graphic_layers[layer_id].add( drawing_primitive )
                       
@@ -280,14 +280,14 @@ class PcbPad(GenericPCBRecord):
                                               self.corner_radius_percentage[ref_layer-1] if self.corner_radius_percentage else 100 )
             drawing_primitive = dwg.path(d=path,
                                          fill=layer.color.to_hex(),
-                                         transform=f"rotate(-{self.rotation} {center.x} {center.y})"
+                                         transform=f"rotate({-self.rotation} {center.x} {center.y})"
                                          )
         
         elif shape.to_int() == 2:
             drawing_primitive = dwg.rect(insert = start.to_int_tuple(),
                                          size = abs(size).to_int_tuple(),
                                          fill = layer.color.to_hex(),
-                                         transform=f"rotate(-{self.rotation} {center.x} {center.y})"
+                                         transform=f"rotate({-self.rotation} {center.x} {center.y})"
                                          )
     
         elif shape.to_int() == 3:
@@ -309,7 +309,7 @@ class PcbPad(GenericPCBRecord):
 
             drawing_primitive = dwg.polygon(points = vertices,
                                             fill = layer.color.to_hex(),
-                                            transform=f"rotate(-{self.rotation} {center.x} {center.y})"
+                                            transform=f"rotate({-self.rotation} {center.x} {center.y})"
                                             )
           
             
@@ -318,7 +318,7 @@ class PcbPad(GenericPCBRecord):
                                               self.corner_radius_percentage[ref_layer-1] if self.corner_radius_percentage else 25)
             drawing_primitive = dwg.path(d=path,
                                          fill=layer.color.to_hex(),
-                                         transform=f"rotate(-{self.rotation} {center.x} {center.y})"
+                                         transform=f"rotate({-self.rotation} {center.x} {center.y})"
                                          )
 
         else:

@@ -89,7 +89,7 @@ class PcbFill(GenericPCBRecord):
                                          stroke_width=zoom,
                                          stroke_linejoin="round",
                                          stroke_linecap="round",
-                                         transform=f"rotate(-{self.rotation} {center.x} {center.y})"
+                                         transform=f"rotate({-self.rotation} {center.x} {center.y})"
                                          )
             
             self.Footprint._graphic_layers[self.layer].add(drawing_primitive)
